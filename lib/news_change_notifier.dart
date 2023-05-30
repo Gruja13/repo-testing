@@ -7,14 +7,18 @@ class NewsChangeNotifier extends ChangeNotifier {
 
   NewsChangeNotifier(this._newsService);
 
-  final List<Article> _articles = [];
+  List<Article> _articles = [];
 
   List<Article> get articles => _articles;
 
-  final bool _isLoading = false;
+  bool _isLoading = false;
   bool get isLoading => _isLoading;
 
   Future<void> getArticles() async {
-    // TODO: Implement
+    _isLoading = false;
+    notifyListeners();
+    _articles = await _newsService.getArticles();
+    _isLoading = false;
+    notifyListeners();
   }
 }
